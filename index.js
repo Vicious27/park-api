@@ -5,43 +5,61 @@
 
 const apiKey = 'fAvwKXa8AAXHrlhhywnH2TgzzE4pSjTjhpZ1QPwc';
 //const searchUrl = 'https://developer.nps.gov/api/v1/alerts';
-const searchUrl = 'https://developer.nps.gov/api/v1';
+const searchUrl = 'api.nps.gov/api/v1';
+// const stateSearchUrl = 'api.nps.gov/api/v1/parks?stateCode=,fl&limit=10';
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
   return queryItems.join('&');
+
+  function displayParkResults(responseJson) {
+    (responseJson);
+    $('#results-list').empty();
+    for (let i = 0; i < responseJson.items.length; i++) {
+      $('#results-list').append(
+        `<li><h3>${responseJson.items[i].snippet.title}</h3>
+      <p>${responseJson.items[i].snippet.description}</p>
+      <img src='${responseJson.items[i].snippet.thumbnails.default.url}'>
+      </li>`
+      );
+    }
+    $('#results').removeClass('hidden');
+  }
 }
 
-function getNatlParks(query, maxResults = 10) {
+
+
+function getNatlParks(stateCode, maxResults = 10) {
   const params = {
     key: apiKey,
-    q: query,
-    part: 'somethinghere?',
+    q: stateCode,
     maxResults,
-    type: 'somethinghere?'
+    type: 'string'
   };
+
   const queryString = formatQueryParams(params);
   const url = searchUrl + '?' + queryString;
 
-  console.log(url);
 
   fetch(url)
     .then(response => {
       if (response.ok) {
-        return response.json(),
-          console.log(response.json());
+        return response.json();
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayResults(responseJson))
+    .then(responseJson => (JSON.stringify(responseJson)))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
 }
 
-function userInput() {
-  $('form').submit(event => {
+
+
+
+function parkSearch() {
+  $('#js-form').submit(event => {
     event.preventDefault();
     const searchTerm = $('#js-search-state').val();
     const maxResults = $('#js-max-results').val();
@@ -50,4 +68,4 @@ function userInput() {
 
 }
 
-$(userInput);
+$(parkSearch);
