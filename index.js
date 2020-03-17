@@ -29,7 +29,7 @@ function generateParkResults(data) {
   });
   return html;
 }
-
+{/* <p>${item.data.addresses}</p> */ }
 
 
 function getNatlParks(stateCode, limit = 10) {

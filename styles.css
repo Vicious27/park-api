@@ -7,11 +7,11 @@ body {
   width: 100%;
   height: 100vh;
   text-align: center;
-  background: rgba(132, 162, 172, 0.952);
+  background: rgba(36, 98, 119, 0.952);
 }
 
 h1 {
-  color: rgba(32, 34, 44, 0.938);
+  color: rgba(24, 25, 27, 0.938);
 }
 
 form {
@@ -23,7 +23,7 @@ form {
   width: fit-content;
   padding: 1rem;
   margin: auto;
-  color: rgba(45, 35, 46, 0.884);
+  color: rgba(24, 25, 27, 0.938);
 }
 
 input {
@@ -36,4 +36,19 @@ input {
   padding: .5rem;
 
 }
+
+ul#js-results-list {
+  list-style-type: none;
+}
+
+li {
+  font-size: large;
+  border: solid rgba(2, 2, 2, 0.925) .2em;
+  width: 700px;
+  margin: auto;
+  padding: .2em;
+}
+
+
+
 
